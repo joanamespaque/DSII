@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Pastas {% endblock %}
+
+{% block perfilnav %}
+
+{% endblock %}
+
+{% block corpo %}
+
+<div class="album py-5 lista-pesquisa">
+    <div class="container menor">
+        <div class="row">
+            {%if query == []%}
+            <h4>Desculpe, não temos o que mostrar :(</h4>
+            {%endif%}
+            {{usuarios}}
+        </div>
+            <div class="row">
+                {%for u in usuarios%}
+                <div>
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" alt="Thumbnail [100%x225]"
+                            style="height: 225px; width: 100%; display: block;" src=""
+                            data-holder-rendered="true">
+                        <div class="card-body">
+                        </div>
+                    </div>
+                </div>
+                {%endfor%}
+            </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{%block script%}
+<script>
+
+</script>
+{% endblock %}

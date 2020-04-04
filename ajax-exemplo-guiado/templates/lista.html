@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Lista de Filmes{% endblock %} 
+{% block corpo %}
+<table class='table'>
+    <tr>
+        <th>ID</th>
+        <th>TÍTULO</th>
+        <th>DIREÇÃO</th>
+        <th>GÊNERO</th>
+    </tr>
+    {% for f in filmes %}
+    <tr>
+        <td>{{f.id}}</td>
+        <td>{{f.titulo}}</td>
+        <td>{{f.direcao}}</td>
+        <td>{{f.genero}}</td>
+        <td> 
+            <a class="seta" id="seta{{f.id}}">
+                <span>\/</span>
+            </a>
+        </td>
+        <td class="loading{{f.id}}"></td>
+    </tr>
+    <tr class="firstResponse{{f.id}}"></tr>
+    <tr class="secondResponse{{f.id}}"></tr>
+    {% endfor %}
+</table>
+{%endblock%}
+{%block script%}
+<script>
+const ids = {};
+ $('.seta').click(function(){
+    let id = $(this).attr('id').substr(4);
+    let tr1 = $(".firstResponse"+id);
+    let tr2 = $(".secondResponse"+id);
+    let loading = $('.loading'+id);
+    let img = document.createElement('img');
+    img.src = '/static/carregar.gif';
+    img.style.height = '30px';
+    img.style.width = '30px';
+    if((id in ids) == false){
+        loading.append(img);
+        req = $.ajax({
+            url: '/buscar?id='+id,
+            type: 'GET',
+            assyn: true,
+            cache: true
+        })
+        req.done(function(data){
+            loading.empty();
+            let json = JSON.parse(data.filme);
+            ids[json.id] = json.titulo;
+            let count = Object.keys(json).length;
+            for(i = 4; i < count; i++){
+                th = document.createElement('th');
+                th.innerHTML = Object.keys(json)[i].toUpperCase();
+                th.style.color = '#89201C';
+                tr1.append(th);
+                td = document.createElement('td');
+                td.innerHTML = Object.values(json)[i];
+                tr2.append(td);
+            }
+        });
+        req.fail(function(jqXHR, textStatus, errorThrown){
+            alert(errorThrown);
+        });
+        
+    } else{
+        tr1.empty();
+        tr2.empty();
+        delete ids[id];
+    }
+ });
+</script>
+{%endblock%}

@@ -1,0 +1,33 @@
+{% extends "base.html"%}
+{% block title %}Projeto{% endblock %}
+{% block corpo %}
+<h3>Projeto:</h3>
+{% if projeto %}
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>NOME</th>
+        </tr>
+        <tr>
+            <td>{{projeto.id}}</td>
+            <td>{{projeto.nome}}</td>
+        </tr>
+    </table>
+    <h3>Funcionários Vinculados:</h3>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>NOME</th>
+            <th>DEPARTAMENTO</th>
+        </tr>
+        {%for f in projeto.funcionarios%}
+        <tr>
+            <td>{{f.id}}</td>
+            <td>{{f.nome}}</td>
+            <td>{{f.departamento.nome}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+
+{% endif %}
+{% endblock %}

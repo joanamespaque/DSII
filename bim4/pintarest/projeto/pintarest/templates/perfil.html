@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Perfil {% endblock %}
+{% block icons%}
+<div class='msg'>
+    {%if msg%}
+    <br><br><br><br>
+    <h4>{{msg}}</h4>
+    {% endif %}
+</div>
+<div class="buttonsheader">
+
+    <div class="btn-group dropleft">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            Configurações
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" data-toggle="modal" data-target="#modal-perfil" id="edit-profile">Editar perfil</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#modal-setting">Alterar e-mail</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item modal-class" id="alterar-senha" data-toggle="modal"
+                data-target="#modal-senha">Alterar senha</a>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-perfil">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edite suas informações</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form id="formpasta" action="/usuario/editar_perfil" method="POST" enctype="multipart/form-data" >
+                            <input type="hidden" name="id" value="{{current_user.id}}">
+                            <div class="d-flex justify-content-center">
+
+                                <div class="profile-image imagePreview">
+                                    <img class="profile" id='img-profile'
+                                        src="{{ url_for('static', filename='uploads/usuarios/'+current_user.foto) }}">
+                                    <div class="foto-change">
+                                        <input type="file" class="custom-file-input uploadFile" id="foto-perfil"
+                                            placeholder="Escolher Arquivo" name="foto">
+                                        <img src="{{ url_for('static', filename='images/camera.png/')}}"
+                                            id="camera-profile">
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <label for="nome">Nome:</label>
+                            <input name="nome" type="text" class="form-control" placeholder="Nome"
+                                value="{{current_user.nome}}">
+                            <br>
+                            <label for="username">Username:</label>
+                            <input name="username" type="text" class="form-control" placeholder="Nome" id="username"
+                                value="{{current_user.username}}" maxlength="15">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn modal-class">Salvar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-setting">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Configure sua conta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form id="formpasta" action="/usuario/editar_perfil" method="POST">
+                            <input type="hidden" name="id" value="{{current_user.id}}">
+                            <label for="email">E-mail:</label>
+                            <input id="email" name="email" type="email" class="form-control" placeholder="Nome"
+                                value="{{current_user.email}}">
+                            <br>
+                            <a style="color: red;" href="/usuario/tela_excluir">Excluir Perfil</a>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn modal-class">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-senha">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Alterar Senha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <form id="formpasta" action="/usuario/alterar_senha" method="POST">
+                            <input type="hidden" value="{{current_user.id}}" name="id">
+                            <label for="senha-antiga">Senha antiga:</label>
+                            <input name="senha-antiga" type="password" class="form-control" placeholder="Senha antiga">
+                            <br>
+                            <label for="nova-senha">Nova senha:</label>
+                            <input name="nova-senha1" type="password" class="form-control" placeholder="Nova senha">
+                            <br>
+                            <label for="nova-senha-2">Digite-a novamente:</label>
+                            <input name="nova-senha2" type="password" class="form-control"
+                                placeholder="Repita a nova senha">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn modal-class">Salvar</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block header %}
+
+<div class="d-flex justify-content-center">
+    <div class="profile-image">
+        <img class="profile" src="{{ url_for('static', filename='uploads/usuarios/'+current_user.foto) }}">
+    </div>
+</div>
+{%if usuario and usuario.id!=current_user.id%}
+{%else%}
+<div class="perfil-infos">
+    <div class="d-flex justify-content-center">
+        <input class="tittle input-name-user" type="text" value="{{current_user.nome}}" disabled>
+    </div>
+    <div class="d-flex justify-content-center">
+        <input type="text" class="input-username" value="{{current_user.username}}" disabled>
+    </div>
+</div>
+<ul class="nav justify-content-center nav-links">
+    <li class="nav-item">
+        <a class="nav-link active" href="/usuario/pins">Pins</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/usuario/pastas">Pastas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/usuario/seguindo/usuarios?id={{current_user.id}}">Seguindo</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/usuario/seguidores?id={{current_user.id}}">Seguidores</a>
+    </li>
+</ul>
+{%endif%}
+{% endblock %}
+
+{% block corpo %}
+{% endblock %}
+
+{%block script%}
+{%endblock%}

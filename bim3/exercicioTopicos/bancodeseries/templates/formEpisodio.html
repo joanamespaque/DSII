@@ -1,0 +1,52 @@
+{% extends "nav.html"%}
+
+{% from "_errors.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %} 
+
+{% block titulo %} Inserir Episódio {% endblock %}
+
+{% block corpo %}
+
+<div class="containertemporada">
+    <div class="serie">
+            <div class='msg' style="margin-bottom:-20px;"">
+                <h4></h4>
+            </div>
+            {%if temporada%}
+            <h3>alterar episódio</h3>
+            {%else%}
+            <h3>inserir episódio</h3>
+            {%endif%}
+                <form action="/episodio/salvar" method="POST" enctype="multipart/form-data">
+                    <label>Série:</label>
+                    <select class="form-control" name="serie" id="serie" required>
+                        <option disabled selected>Selecione uma série</option>
+                        {% for s in series %}
+                            {%if s.usuario.cod == session['cod']%}
+                                <option value="{{s.cod}}" 
+                                {%if temporada%}
+                                    {% if s.cod == temporada.serie.cod %} 
+                                    selected 
+                                    {% endif %}
+                                {% endif %}
+                                >
+                                {{s.titulo}}
+                                </option>
+                            {%endif%}
+                        {% endfor %}
+                    </select>
+                    <label for="temporada">Temporada:</label>
+                    <select name="temporada" id="temporada" class="form-control"></select>
+                    <label>Título do Episódio:</label>
+                    <input type="text" name="titulo" class="form-control" {% if temporada %} value="{{temporada.titulo}}" {%endif%} required>
+                    <input type="submit" class="btn">
+                </form>
+    </div>
+
+</div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/temporada.js') }}"></script>
+{% endblock %}

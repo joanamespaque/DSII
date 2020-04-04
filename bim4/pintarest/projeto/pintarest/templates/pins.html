@@ -1,0 +1,62 @@
+{% extends 'perfil.html' %}
+
+{% block titulo %} Pintarest - Pins {% endblock %}
+
+{% block corpo %}
+<a class="btn btn-danger middle tittle button-criar" href="/pin/inserir"> + </a>    
+<div>
+    <div class="container menor" style="margin-top: 20px;">
+        <div class="row">
+            {% for p in plistar %}
+            {%if p.idcriador == current_user.id %}
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" alt="Thumbnail [100%x225]"
+                        style="height: 225px; width: 100%; display: block;" src="/static/uploads/pins/{{p.imagem}}"
+                        data-holder-rendered="true">
+                    <div class="card-body">
+                       <a class="editar_pin" id="{{p.id}}" class="btn modal-class" data-toggle="modal" data-target="#exampleModal2"><p class="card-text">{{p.titulo}}</p></a> 
+                    </div>
+                    <div class="dropdown-divider"></div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detalhes do Pin</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <img id="img_modal" class="card-img-top" src="" data-holder-rendered="true">
+                    
+                            <div style="padding-top: 1em;">
+                                <p id="titulo"></p>
+                                <p id="descricao"></p>
+                                <p id="tematica"></p> 
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="botoes middle" >
+                                <a href="/pin/delete?id={{p.id}}">
+                                    <img class="icon-crud" src="{{ url_for('static', filename='images/trash.png') }}">
+                                </a>
+                                <a class="editar" id="editar{{p.id}}" href="/pin/editar?id={{p.id}}">
+                                    <img class="icon-crud" src="{{ url_for('static', filename='images/pencil.png') }}">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+{%block script%}
+{%endblock%}

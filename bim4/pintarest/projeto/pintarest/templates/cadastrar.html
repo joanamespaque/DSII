@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Cadastrar {% endblock %}
+
+{% block corpo %}
+    <div class="container menor">
+        <div class="row">
+            <div class="col">
+                
+            </div>
+            <div class="col">
+                        <div class='msg alert-danger'>
+                                {%if msg%}
+                                    <h4>{{msg}}</h4>
+                                {% endif %}
+                        </div>
+                <h1 class="tittle">Cadastrar</h1>
+                <form method="post" action="/usuario/cadastrar">
+                    <div class="form-group">
+                        <label for="exampleInputNome">Nome</label>
+                        <input name="nome" type="text" class="form-control" id="exampleInputNome" aria-describedby="nomeHelp" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUser">Username</label>
+                        <input id='username' name="username" type="text" class="form-control" id="exampleInputUser" aria-describedby="userHelp" placeholder="Nome de Usuário" required maxlength="15" onkeyup="this.value = Trim( this.value )">
+                    </div>
+                    <!-- <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Foto</span>
+                        </div>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="inputGroupFile01">Escolher Arquivo</label>
+                            <input name="foto" type="file" class="custom-file-input" id="inputGroupFile01" placeholder="Escolher Arquivo">
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Endereço de Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input name="senha" type="password" class="form-control" id="exampleInputPassword1" placeholder="Senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger">Cadastrar</button>
+                </form>
+
+                <div class="fun">
+                    <a class="btn btn-outline-dark" href="/usuario/entrar" role="button">Entrar</a>
+                    <a class="btn btn-outline-dark" href="/" role="button">Voltar</a>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+    
+{% endblock %}
+{%block script%}
+{%endblock%}

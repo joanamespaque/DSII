@@ -1,0 +1,58 @@
+{%if pasta.idcriador == current_user.id%}
+{% extends 'perfil.html' %}
+{%else%}
+{% extends 'base.html' %}
+{%endif%}
+
+{% block titulo %} Pintarest - Pastas {% endblock %}
+
+{% block corpo %}
+<br> <br> <br> 
+<div class="album py-5">
+        <div class="col-12 pastapin">
+                <div class="tab-content listapastas" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-{{pasta.id}}" role="tabpanel" aria-labelledby="list-{{pasta.id}}-list">
+                        <div class="infopasta">
+                            <h1 class="tittle{{pasta.id}} tittle pastatittle">Pasta: {{pasta.nome}}
+                                
+                            </h1>
+                            {%if pasta.secreto%}
+                                <img style="height: 35px; width: 35px;  margin-top:6px;" src="/static/images/lock.png" class="lock">
+                            {%endif%}
+                        </div>
+                        <br>    
+                        <h5 id="desc">Descrição: {{pasta.descricao}}</h5>
+                        <h5 id="desc">Criador: {{pasta.criador.username}}</h5>
+                        <br>    
+                        <!-- <div class="container menor"> -->
+                            <div class="row divpins">
+                                    {% for pin in pasta.pins %}
+                                    <div class="col-md-3">
+                                            <div class="card mb-4 box-shadow">
+                                                <img class="card-img-top" alt="Thumbnail [100%x225]"
+                                                    style="height: 225px; width: 100%; display: block;" src="/static/uploads/pins/{{pin.imagem}}"
+                                                    data-holder-rendered="true">
+                                                <div class="card-body">
+                                                    <p class="card-text" >{{pin.titulo}}</p>
+                                                </div>
+                                                {%if pin.idcriador == current_user.id%}
+                                                <div class="dropdown-divider"></div>
+                                                <div class="botoes middle" >
+                                                    <a href="/pin/delete?id={{pin.id}}">
+                                                        <img class="icon-crud" src="{{ url_for('static', filename='images/trash.png') }}">
+                                                    </a>
+                                                    <a class="editar" id="editar{{pin.id}}" href="/pin/editar?id={{pin.id}}">
+                                                        <img class="icon-crud" src="{{ url_for('static', filename='images/pencil.png') }}">
+                                                    </a>
+                                                </div>
+                                                {%endif%}
+                                            </div>
+                                        </div>
+                                    {% endfor %}                                   
+
+                            </div>
+                        <!-- </div> -->
+                </div>
+            </div>
+    </div>
+{% endblock %}

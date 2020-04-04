@@ -1,0 +1,73 @@
+Ementa DSII 
+INTRO PYTHON:
+- setup e conceitos iniciais
+- sintaxe básica 
+- orientação a objetos em PYTHON
+- manipulação de arquivos 
+- conexão BD
+
+FLASK (framework):
+- setup e conceitos iniciais
+- rotas 
+- templates 
+- upload 
+- sessões 
+- paginas de erro
+
+OUTROS TÓPICOS 
+- SQLALCHEMY 
+- flask c/ ajax
+- algum framework front (materialize)
+- testes 
+- hospedagem
+
+-setar variaveis de ambiente
+
+python --version 
+
+python3 (abre o terminal interativo)
+
+print("oi mundinho")
+
+exit() -> sair do terminal interativo
+
+sintaxe
+
+- saida de dados 
+print()
+- entrada de dados
+input("string:mensagem") -> retorna string digitada
+
+
+input("informe o seu nome, cabeca de teta:")
+
+- use 4 espaços para identação
+
+int(variavel) ->inteiro 
+float(variavel) -> 5 -> 5.0
+str(variavel) -> string
+type(variavel) 
+
+operadores aritméticos: + - * /(divisao fracionaria) % // (divisao inteira) ** (potencia)
+4**5 -> 4 elevado a quinta potencia
+
+tipos: int, float, str, complex
+
+raw_input(); 
+
+
+nome = "tiago moraes"
+nome[2:4] => 'ag'
+nome[2:] => 'ago moraes'
+nome[:2] => 'ti'
+
+
+
+
+
+
+
+
+
+ 
+

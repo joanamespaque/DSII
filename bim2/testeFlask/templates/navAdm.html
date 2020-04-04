@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{% endblock %}
+{%block nav%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand white" href="base.html"> Alô, {{session['nome']}} tetahead!</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        {% if session['adm'] %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Funcionário
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/funcionario/listar">Listar</a>
+          <a class="dropdown-item" href="/funcionario/telaInserir">Inserir</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Departamento
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/departamento/listar">Listar</a>
+            <a class="dropdown-item" href="/departamento/telaInserir">Inserir</a>
+          </li>
+          {%endif%}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Projeto
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/projeto/listar">Listar</a>
+              <a class="dropdown-item" href="/projeto/telaInserir">Inserir</a>
+          </li>
+          <a href="/logout" class="nav-link" style="color:white;float:right;">Sair</a>
+          </ul>
+        </div>
+      </nav>
+      {%endblock%}
+{% block corpo %}
+{% endblock %}

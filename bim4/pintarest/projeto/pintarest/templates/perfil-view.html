@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Perfil {% endblock %}
+{% block icons%}
+<div class='msg'>
+    {%if msg%}
+    <br><br><br><br>
+    <h4>{{msg}}</h4>
+    {% endif %}
+</div>
+{% endblock %}
+{% block header %}
+<!-- {{usuario}} -->
+<div class="header-perfil middle">
+    <div style="width: 100%; height: 200px;">
+        <img id="img-perfil-view" src="/static/uploads/usuarios/{{usuario.foto}}">
+        <span style="font-size:30px; margin-left:20px; top: 37%; position: absolute;">{{usuario.nome}}</span>
+        <div style=" margin-left:20px; padding-top: 170px;">
+            <span style="font-size:16px; float: left;  margin-left:20px;">
+                <strong>
+                    Seguidores: 0
+                </strong>
+            </span>
+            <span style="font-size:16px; float: left;  margin-left:20px;">
+                <strong>
+                    Seguindo: 0
+                </strong>
+            </span>
+        </div>
+    </div>
+    <div>
+        {%if seguido%}
+        <a  class="btn btn-danger" href="/usuario/deixar_de_seguir?id={{usuario.id}}" role="button" style="float:right; margin-right: 20px;margin-top: -40px; ">Seguindo</a>
+        {%else%}
+        <a href="/usuario/seguir?id={{usuario.id}}" class="btn btn-outline-danger" style="float:right; margin-right: 20px;margin-top: -40px; ">Seguir </a>
+        {%endif%}
+    </div>
+</div>
+<br>
+{% endblock %}
+{% block corpo %}
+<div class="pastaitem">
+        <br> <br> <br> <br>
+        <div class="tab-content listapastas" id="nav-tabContent">
+            {% for p in pastas %}
+            <a name="pasta{{p.id}}"></a>
+            <div class="tab-pane fade show active" id="list-{{p.id}}" role="tabpanel" aria-labelledby="list-{{p.id}}-list">
+                <a href="/usuario/pasta?id={{p.id}}" class="tittle titulo-pasta">
+                    <h2 class="tittle{{p.id}}">{{p.nome}}</h2>
+                </a>
+                
+                <!-- <div class="container menor"> -->
+                    <div class="row" style="width: 100%;">
+                        {%if p.pins == []%}
+                        A pasta &nbsp;<span>{{p.nome}}</span>&nbsp; e ainda não tem pins :(
+                        <br>
+                        <br>
+                        {%else%}
+    
+                        {%for item in p.pins%}
+                        <div class="col-md-3">
+                            <div class="card mb-3 box-shadow">
+                                <img class="card-img-top" alt="Thumbnail [100%x225]"
+                                    style="height: 225px; width: 100%; display: block;"
+                                    src="/static/uploads/pins/{{item.imagem}}" data-holder-rendered="true">
+                                <div class="card-body" style="width: 100%; display: block;">
+                                    <a class="editar_pin" id="{{item.id}}" class="btn modal-class" data-toggle="modal" data-target="#exampleModal2"><p class="card-text">{{item.titulo}}</p></a> 
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {%endif%}
+                    </div>
+                <!-- </div> -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
+    <br>
+    
+{% endblock %}
+
+{%block script%}
+{%endblock%}

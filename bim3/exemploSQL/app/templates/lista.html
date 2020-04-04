@@ -1,0 +1,95 @@
+{% extends "base.html"%}
+{% block title %}Lista{% endblock %}
+{% block corpo %}
+<div class="container">
+  <table class="table">
+    {% if funcionarios %}
+    <h3>LISTA DE FUNCIONÁRIOS</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+      <th>DEPARTAMENTO</th>
+    </tr>
+    {%for f in funcionarios: %}
+    <tr>
+      <td>
+        {{f.id}}
+      </td>
+      <td>
+        {{f.nome}}
+      </td>
+      <td>
+        {{f.departamento.nome}}
+      </td>
+      <td class="botoes" style='width:300px;'>
+        <a href="/funcionario/excluir?id={{f.id}}">
+          <button id="botao" type="submit" class="btn btn-danger" name="excluir" value={{f.id}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/funcionario/alterar?id={{f.id}}">
+          <button id="botao" type="submit" class="btn btn-primary" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{f.id}} name="alterar">Alterar</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+    {%endif%}
+    {% if departamentos and not funcionarios%}
+    <h3>LISTA DE DEPARTAMENTOS</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+      <th>DATA ATUALIZAÇÃO</th>
+      <th>RUA</th>
+      <th>NÚMERO</th>
+    </tr>
+    {%for d in departamentos: %}
+    <tr>
+      <td>{{d.id}}</td>
+      <td>{{d.nome}}</td>
+      <td>{{d.data_atualizacao}}</td>
+      <td>{{d.endereco.rua}}</td>
+      <td>{{d.endereco.numero}}</td>
+      <td class="botoes">
+        <a href="/depto/excluir?id={{d.id}}">
+          <button id="botao" type="submit" class="btn btn-danger" name="excluir" value={{d.id}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/depto/alterar?id={{d.id}}">
+          <button id="botao" type="submit" class="btn btn-primary" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{d.id}} name="alterar">Alterar</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+    {%endif%}
+    {% if projetos %}
+    <h3>LISTA DE PROJETOS</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+    </tr>
+    {%for p in projetos: %}
+    <tr>
+      <td>{{p.id}}</td>
+      <td>{{p.nome}}</td>
+      <td class="botoes" style='width:300px;'>
+        <a href="/projeto/excluir?id={{p.id}}">
+          <button id="botao" type="submit" class="btn btn-danger" name="excluir" value={{p.id}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/projeto/alterar?id={{p.id}}">
+          <button id="botao" type="submit" class="btn btn-primary" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{p.id}} name="alterar">Alterar</button>
+        </a>
+        <a href="/projeto/telaInfo?id={{p.id}}">
+          <button id="botao" name="infoidFunc" value={{p.id}} class="btn btn-primary info"
+            style="float:left;">info</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {%endif%}
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "nav.html"%}
+
+{% from "_errors.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %} 
+
+{% block titulo %} Inserir Temporada {% endblock %}
+
+{% block corpo %}
+
+<div class="containertemporada">
+    <div class="serie">
+            {%if temporada%}
+            <h3>alterar temporada</h3>
+            {%else%}
+            <h3>inserir temporada</h3>
+            {%endif%}
+                <form action="/temporada/salvar" method="POST" enctype="multipart/form-data">
+                    <label>Série:</label>
+                    {%if temporada%}
+                    <input type="hidden" name="cod" value={{temporada.cod}}>
+                    {%endif%}
+                    <select class="form-control" name="serie" id="serie" 
+                    {%if temporada%}
+                    disabled
+                    {%else%}
+                    required
+                    {%endif%}
+                    >
+                        <option disabled selected>Selecione uma série</option>
+                        {% for s in series %}
+                            {%if s.usuario.cod == session['cod']%}
+                                <option value="{{s.cod}}" 
+                                {%if temporada%}
+                                    {% if s.cod == temporada.serie.cod %} 
+                                    selected 
+                                    {% endif %}
+                                {% endif %}
+                                >
+                                {{s.titulo}}
+                                </option>
+                            {%endif%}
+                        {% endfor %}
+                    </select>
+                    <label>Título:</label>
+                    <input type="text" name="titulo" class="form-control" {% if temporada %} value="{{temporada.titulo}}" {%endif%} required>
+                    <input type="submit" class="btn">
+                </form>
+    </div>
+
+</div>
+
+{% endblock %}

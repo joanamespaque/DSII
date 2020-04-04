@@ -1,0 +1,37 @@
+{% extends "nav.html"%}
+
+{% from "_errors.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %} 
+
+{% block titulo %} Inserir Série {% endblock %}
+
+{% block corpo %}
+
+{% if form.errors %}
+{{ form.errors }}
+{% endif %}
+<div class="containerSerie">
+    <div class="serie">
+            {%if serie%}
+            <h3>alterar série</h3>
+            {%else%}
+            <h3>inserir série</h3>
+            {%endif%}
+                <form action="/serie/salvar" method="POST" enctype="multipart/form-data">
+                    {%if serie%}
+                    <input type="hidden" name="cod" value={{serie.cod}}>
+                    <input type="hidden" name="foto" value={{serie.foto}}>
+                    {%endif%}
+                    <label>Título:</label>
+                    <input type="text" name="titulo" class="form-control" {% if serie %} value="{{serie.titulo}}" {%endif%} required>
+                    <label>Foto:</label>
+                    <input type="file" name="file" class="form-control-file">
+                    <input type="submit" class="btn">
+                </form>
+    </div>
+
+</div>
+
+{% endblock %}

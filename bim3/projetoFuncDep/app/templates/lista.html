@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Lista de Departamentos {% endblock %}
+
+{% block corpo %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOME</th>
+                <th>DATA ATUALIZAÇÃO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for d in deptos%}
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.nome}}</td>
+                <td>{{d.data_atualizacao}}</td>
+                <td>
+                    <a href="/depto/excluir?id={{d.id}}">
+                            <button name="excluir" class="btn btn-danger" value={{d.id}}>excluir</button>
+                    </a>
+                </td>
+                <td>
+                    <a href="/depto/alterar?id={{d.id}}">
+                            <button name="alterar" class="btn btn-danger" value={{d.id}}>alterar</button>
+                    </a>
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <a href="/depto/telaCadastro">Inserir</a>
+{% endblock %}

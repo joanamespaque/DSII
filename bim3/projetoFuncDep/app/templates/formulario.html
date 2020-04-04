@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Cadastro {% endblock %}
+
+{% block corpo %}
+    {%if depto%}
+    <h2>Alterar departamento:</h2>
+    {%else%}
+    <h2>Cadastrar departamento:</h2>
+    {%endif%}
+    <form method="POST" action="/depto/salvar">
+        <div class="form-group">
+            {%if depto%}
+                <input type="hidden" name="id" value={{depto.id}}>
+            {%endif%}
+            <label>Nome:</label>
+            <input type="text" name="nome" class="form-control" id="nome" placeholder="nome" {%if depto%}value="{{depto.nome}}"{%endif%}>
+        </div>
+        <BR></BR>
+        <input type="submit" value="ENVIAR" class="btn btn-primary">
+    </form>
+    <a href="/depto/listar">Lista de departamentos</a>
+{% endblock %}

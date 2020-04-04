@@ -1,0 +1,104 @@
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.tittle {
+    font-family: 'Pacifico', cursive;
+}
+
+div.container {
+    margin-top: 7em;
+}
+
+a.tittle {
+    font-size: 2em;
+}
+
+div#check-layout > * {
+    margin-left: 0.25em;
+    margin-right: 1em;
+    display: inline;
+}
+
+nav.navbar.navbar-expand-lg.navbar-light.fixed-top.bg-danger {
+    color: white;
+}
+
+div.jumbotron.color-change-2x {
+    color: white;
+	-webkit-animation: color-change-2x 2s linear infinite alternate both;
+	        animation: color-change-2x 2s linear infinite alternate both;
+}
+
+hr.my-4 {
+    border-top: 1px solid hsla(0, 0%, 100%, 0.479);
+}
+
+@-webkit-keyframes color-change-2x {
+    0% {
+        background: #7b1eb1;
+    }
+  
+    100% {
+        background: #a3143f;
+    }
+}
+
+@keyframes color-change-2x {
+    0% {
+      background: #7b1eb1;
+    }
+
+    100% {
+      background: #a3143f;
+    }
+}
+
+body.body-color {
+    -webkit-animation: body-color 2s linear infinite alternate both;
+	        animation: body-color 2s linear infinite alternate both;
+}
+
+@-webkit-keyframes body-color {
+    0% {
+        background: #3f111f;
+    }
+  
+    100% {
+        background: #271a2e;
+    }
+}
+
+@keyframes body-color {
+    0% {
+        background: #3f111f;
+    }
+
+    100% {
+        background: #271a2e;
+    }
+}
+
+div.fun {
+    margin-top: 1em;
+}
+
+div#nome {
+    margin-top: 1em;
+}
+
+div.container.menor {
+    margin-top: 5em;
+}
+
+a.nav-link {
+    color: #ff2365;
+}
+
+a.nav-link:hover {
+    color: black;
+}
+
+div.legal {
+    display: inline-block;
+}

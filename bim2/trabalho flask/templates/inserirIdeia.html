@@ -1,0 +1,18 @@
+{% extends "nav.html"%}
+{% block title %}Inserir ideia{% endblock %}
+{% block corpo %}
+<form action="/ideia/salvar" method="POST">
+    <h3 style="margin-top:30px;">Alterar Ideia</h3>
+    {% if ideia %}
+    <input type="hidden" name="cod"  {% if ideia %} value={{ideia.cod}} {%endif%}>
+    <input type="hidden" name="datahoraatualizacao" value="{{ideia.datahoraatualizacao}}">
+    {%endif%}
+    <label>Título</label>
+    <input type="text" name="titulo" class="form-control" {% if ideia %} value="{{ideia.titulo}}" {%endif%} required>
+    <br>
+    <label>Descrição</label>
+    <input type="text" name="descricao" class="form-control" {% if ideia %} value="{{ideia.descricao}}" {%endif%} required >
+    <br>
+    <input type="submit" class="btn btn-default btn-add" id="botao">
+</form>
+{% endblock %}

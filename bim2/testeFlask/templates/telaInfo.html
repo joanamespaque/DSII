@@ -1,0 +1,82 @@
+{% extends "navAdm.html"%}
+{% block title %}Inserir Funcionário{% endblock %}
+{% block corpo %}
+<table class="table">
+  {% if funcionario %}
+  <tr>
+    <th>CÓDIGO</th>
+    <th>NOME</th>
+    <th>LOGIN</th>
+    <th>ADM</th>
+    <th>CÓDIGO DEPARTAMENTO</th>
+    <th>NOME DEPARTAMENTO</th>
+    <th>DATA ATUALIZAÇÃO DEPARTAMENTO</th>
+  </tr>
+  <tr>
+    <td>
+      {{funcionario.cod}}
+    </td>
+    <td>
+      {{funcionario.nome}}
+    </td>
+    <td>
+      {{funcionario.login}}
+    </td>
+    <td>
+      {{funcionario.adm}}
+    </td>
+    <td>
+      {{funcionario.departamento.cod}}
+    </td>
+    <td>
+      {{funcionario.departamento.nome}}
+    </td>
+    <td>
+      {{funcionario.departamento.dt_atu}}
+    </td>
+  </tr>
+  {%endif%}
+  {% if projeto %}
+  <h2>PROJETO</h2>
+  <tr>
+    <th>CÓDIGO</th>
+    <th>NOME</th>
+    <th>DATA PREVISTA</th>
+  </tr>
+  <tr>
+    <td>{{projeto.cod}}</td>
+    <td>{{projeto.nome}}</td>
+    <td>{{projeto.dataprevista}}</td>
+  </tr>
+</table>
+  <h2>Funcionários Vinculados ao Projeto</h2>
+  <table class="table">
+    {% for f in funcionarios: %}
+    <tr>
+        <th>CÓDIGO</th>
+        <th>NOME</th>
+        <th>LOGIN</th>
+        <th>ADM</th>
+        <th>NOME DEPARTAMENTO</th>
+      </tr>
+      <tr>
+        <td>
+          {{f.cod}}
+        </td>
+        <td>
+          {{f.nome}}
+        </td>
+        <td>
+          {{f.login}}
+        </td>
+        <td>
+          {{f.adm}}
+        </td>
+        <td>
+          {{f.departamento.nome}}
+        </td>
+      </tr>
+    {%endfor%}
+  </table>
+{%endif%}
+{% endblock %}

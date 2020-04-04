@@ -1,0 +1,24 @@
+
+{% extends "index.html" %}
+{% block content %}
+
+<form action="/d/salvar" method="POST">
+    Nome departamento:
+    <input name="nome" type="text">
+    <br>
+    <br>
+    Rua:
+    <input name="rua" type="text">
+    <br>
+    <br>
+    Nº:
+    <input name="numero" type="number">
+    <input name="iddepartamento" type="hidden">
+    <input name="idendereco" type="hidden">
+
+    <input type="submit">
+
+</form>
+
+
+{% endblock %}

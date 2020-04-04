@@ -1,0 +1,50 @@
+{% extends "navAdm.html"%}
+{% block title %}Inserir projeto{% endblock %}
+{% block corpo %}
+<form action="/projeto/salvar" method="POST">
+    {% if projeto %}
+    <h3 style="margin-top:30px;">Alterar Projeto</h3>
+    <input type="hidden" name="projcod" value={{projeto.cod}}>
+    <label>Nome:</label>
+    <input type="text" name="nome" class="form-control" required value="{{projeto.nome}}">
+    <br>
+    <label>Data Prevista:</label>
+    <input type="date" name="dataprevista" class="form-control" required value="{{projeto.dataprevista}}">
+    <br>
+    <label>Selecione os funcionários a vincular e desvincular:</label>
+    {%for f in funcionarios%}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{f.cod}}" name="funcionario" id="defaultCheck1"
+            {%for funcVinc in projeto.funcionarios %}
+                {% if funcVinc.cod == f.cod %}    
+                    checked
+                {%endif%}
+            {%endfor%}
+        >
+        <label class="form-check-label" for="defaultCheck1">
+            {{f.nome}}
+        </label>
+    </div>
+    {%endfor%}
+    {%else:%}
+    <h3 style="margin-top:30px;">Inserir Projeto</h3>
+    <label>Nome:</label>
+    <input type="text" name="nome" class="form-control" required>
+    <br>
+    <label>Data Prevista:</label>
+    <input type="date" name="dataprevista" class="form-control" required>
+    <br>
+    <label>Selecione os funcionários a vincular:</label>
+    {%for f in funcionarios%}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{f.cod}}" name="funcionario" id="defaultCheck1">
+        <label class="form-check-label" for="defaultCheck1">
+            {{f.nome}}
+        </label>
+    </div>
+    {%endfor%}
+    {%endif%}
+    <br>
+    <input type="submit" class="btn btn-default btn-add" id="botao">
+</form>
+{% endblock %}

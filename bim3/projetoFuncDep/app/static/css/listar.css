@@ -1,0 +1,41 @@
+table {
+    background-color: #FFF;
+    text-align: center;
+    border-radius: 7px;
+    color:black;
+    margin-top: 20px;
+}
+div.links a{
+    color:white;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    margin-top:20px;
+}
+
+td.load, td.load img{
+    border:none;
+    width:40px;
+    /* height: 80px; */
+}
+body{
+    background-color:#FEA63A;
+}
+.black{
+    background-color: black;
+    color:white;
+}
+.botao{
+    font-family: 'Beth Ellen', cursive;
+    margin-left: 10px;
+}
+td.botoes{
+    width:360px;
+}
+td.botoes a{
+    float:right;
+}
+tbody{
+    width: 100%;
+}

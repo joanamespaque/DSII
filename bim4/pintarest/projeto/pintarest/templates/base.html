@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand:300&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-danger">
+        <a class="navbar-brand tittle text-light" href="/">Pintarest</a>
+        
+        <div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+            {% if current_user.is_authenticated %}
+            <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle  text-light" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Criar
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="/pin/inserir">Criar Pin</a>                               
+                                <a class="nav-link" href="/usuario/pastas">Criar Pasta</a>                               
+                            </div>
+                        </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="#">Seguindo</a>
+                </li>
+            </ul>
+            
+            {% endif %}
+            <form class="form-inline my-2 my-lg-0" action="/usuario/pesquisar" method="POST">
+                <input name="pesquisa" class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar" required>
+                <div id="check-layout"> 
+                    <input type="radio" name="tipo" value="pins" checked> Pins
+                    <input type="radio" name="tipo" value="pastas"> Pastas
+                    <input type="radio" name="tipo" value="usuarios"> Usuários
+                </div>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Pesquisar</button>
+            </form>
+        </div>
+        {%if current_user.is_authenticated %}
+                <div class="userspace">
+                    <span class="name"> {{current_user.nome}}</span>
+                    <a href="/usuario/pins">
+                        <div class="imagem-perfil">
+                            <img class="profile" 
+                            {% if current_user.foto == "profile.png" %}
+                            src="{{ url_for('static', filename='images/profile.png') }}"
+                            {%else%}
+                            src="{{ url_for('static', filename='uploads/usuarios/'+current_user.foto) }}"
+                            {%endif%}
+                            >
+                        </div>
+                    </a>
+                    <a href="/usuario/logout" >
+                        <button class="logout btn btn-outline-light my-2" type="submit">Sair</button>
+                    </a>
+                </div>
+        {%endif%}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#conteudoNavbarSuportado" aria-controls="conteudoNavbarSuportado" aria-expanded="false" aria-label="Alterna navegação">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+    </nav>
+    {% block icons %}
+    {% endblock %}
+    <div class="container">
+        {% block header %}{% endblock %}
+        {% block corpo %}{% endblock %}
+    </div>
+    <!-- <br><br> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
+    <script src="{{url_for('static', filename='js/jquery.js')}}"></script>
+    <script src="{{url_for('static', filename='js/perfil.js')}}"></script>
+    <script src="{{url_for('static', filename='js/msg.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pastas.js')}}"></script>
+    <script src="{{url_for('static', filename='js/pin.js')}}"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    {%block script%}
+    {%endblock%}
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "nav.html" %}
+{% block title %}Lista Ideias{% endblock %}
+{% block corpo %}
+  <div class="container">
+        <table class="table">
+          <tr>
+            <th>CÓDIGO</th>
+            <th>TÍTULO</th>
+            <th>DESCRICAO</th>
+            <th>AUTOR</th>
+          </tr>
+          <tr>
+            <td>{{ideia.cod}}</td>
+            <td>{{ideia.titulo}}</td>
+            <td>{{ideia.descricao}}</td>
+            <td>{{ideia.usuario.nome}}</td>
+            </td>
+            <td class="botoes">
+              {%if ideia.usuario.login == session['login'] %}
+              <a href="/ideia/excluir?cod={{ideia.cod}}">
+                <button id="botao" type="submit" class="btn btn-add" name="excluir" value={{ideia.cod}}
+                  style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+              </a>
+              <a href="/ideia/alterar?cod={{ideia.cod}}">
+                <button id="botao" type="submit" class="btn btn-add" style="float:left; margin-right:5px; margin-bottom:2px;"
+                  value={{ideia.cod}} name="alterar">Alterar</button>
+              </a>
+              {%endif%}
+            </td>
+          </tr>
+        </table>
+      </div>
+{% endblock %}

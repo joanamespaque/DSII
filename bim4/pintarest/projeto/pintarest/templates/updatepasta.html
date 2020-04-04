@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Inserir Pasta {% endblock %}
+
+{% block perfilnav %}
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link text-light" href="/inserir">Criar Pin</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="/pasta/inserir">Criar Pasta</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="#">Seguindo</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block corpo %}
+    <div class="container menor">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <h1 class="tittle">Editar Pasta</h1>
+                <form action="/pasta/update/id={{p.id}}" method="POST">
+                    <h2>Velho Nome {{ p.nome }}</h2>
+                    <div class="form-group">
+                        <label for="exampleInputNome2">Novo Nome</label>
+                        <input name="novo_nome" type="text" class="form-control" id="exampleInputNome2" aria-describedby="nome2Help" placeholder="Novo Nome da Pasta">
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger">Inserir</button>
+                </form>
+
+                <div class="fun">
+                    <a class="btn btn-outline-dark" href="/perfil" role="button">Voltar</a>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

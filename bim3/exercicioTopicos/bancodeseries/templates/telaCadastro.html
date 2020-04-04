@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% from "_errors.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %} 
+
+{% block titulo %} Cadastro {% endblock %}
+
+{% block corpo %}
+
+{% if form.errors %}
+{{ form.errors }}
+{% endif %}
+<div class="cadastro">
+        <div class='msg'>
+                {%if msg%}
+                    <h4>{{msg}}</h4>
+                {% endif %}
+        </div>
+        <h3>Cadastre-se</h3>
+            <form method="post" action="/usuario/cadastro">
+                {{ form.csrf_token }}
+                {{render_field(form.nome)}}
+                {{render_field(form.login)}}
+                {{render_field(form.email)}}
+                {{render_field(form.altura)}}
+                {{render_field(form.idade)}}
+                {{render_field(form.senha)}}
+                {{form.enviar(class_="btn")}}
+                <a href="/usuario/telaLogin">Já possui um cadastro? Clique aqui para fazer login.</a>
+            </form>
+        </div>
+{% block script %}
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function(){ 
+        setTimeout(function() {
+            $(".msg").fadeOut().empty();
+        }, 3000);
+    }, false);
+</script>
+{% endblock %}
+{% endblock %}

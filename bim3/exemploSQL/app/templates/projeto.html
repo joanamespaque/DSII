@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+{% block title %}Inserir projeto{% endblock %}
+{% block corpo %}
+{%if depto%}
+<h3  style="margin-top:30px;">Alterar Projeto:</h3>
+{%else%}
+<h3  style="margin-top:30px;">Inserir Projeto:</h3>
+{%endif%}
+<form action="/projeto/salvar" method="POST">
+    {%if projeto%}
+    <input type="hidden" name="id" {% if projeto %} value="{{projeto.id}}" {%endif%}>
+    {% endif %}
+    <label>Nome:</label>
+    <input type="text" name="nome" class="form-control" required {% if projeto %} value="{{projeto.nome}}" {%endif%}>
+    <br>
+    <label>Selecione os funcionários a vincular:</label>
+    {%for f in funcionarios%}
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="{{f.id}}" name="funcionario" id="defaultCheck1"
+            {%if projeto%}
+            {%for funcVinc in projeto.funcionarios %}
+                {% if funcVinc.id == f.id %}    
+                    checked
+                {%endif%}
+            {%endfor%}
+            {%endif%}
+        >
+        <label class="form-check-label" for="defaultCheck1">
+            {{f.nome}}
+        </label>
+    </div>
+    {%endfor%}
+
+    <br>
+    <input type="submit" class="btn btn-default btn-primary" id="botao">
+</form>
+{% endblock %}

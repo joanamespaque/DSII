@@ -1,0 +1,95 @@
+{% extends "navAdm.html"%}
+{% block title %}Lista{% endblock %}
+{% block corpo %}
+<div class="container">
+  <table class="table">
+    {% if funcionarios %}
+    <h3>LISTA DE FUNCIONÁRIOS ({{len}})</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+    </tr>
+    {%for f in funcionarios: %}
+    <tr>
+      <td>
+        {{f.cod}}
+      </td>
+      <td>
+        {{f.nome}}
+      </td>
+      <td class="botoes">
+        <a href="/funcionario/excluir?cod={{f.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" name="excluir" value={{f.cod}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/funcionario/alterar?cod={{f.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{f.cod}} name="alterar">Alterar</button>
+        </a>
+        <a href="/funcionario/telaInfo?cod={{f.cod}}">
+          <button id="botao" name="infoCodFunc" value={{f.cod}} class="btn btn-add info"
+            style="float:left;">info</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+    {%endif%}
+    {% if departamentos %}
+    <h3>LISTA DE DEPARTAMENTOS ({{len}})</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+      <th>GERENTE</th>
+      <th>DATA ATUALIZAÇÃO</th>
+    </tr>
+    {%for d in departamentos: %}
+    <tr>
+      <td>{{d.cod}}</td>
+      <td>{{d.nome}}</td>
+      <td>{{d.gerente.nome}}</td>
+      <td>{{d.dt_atu}}</td>
+      <td class="botoes">
+        <a href="/departamento/excluir?cod={{d.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" name="excluir" value={{d.cod}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/departamento/alterar?cod={{d.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{d.cod}} name="alterar">Alterar</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+    {%endif%}
+    {% if projetos %}
+    <h3>LISTA DE PROJETOS ({{len}})</h3>
+    <tr>
+      <th>CÓDIGO</th>
+      <th>NOME</th>
+      <th>DATA PREVISTA</th>
+    </tr>
+    {%for p in projetos: %}
+    <tr>
+      <td>{{p.cod}}</td>
+      <td>{{p.nome}}</td>
+      <td>{{p.dataprevista}}</td>
+      <td class="botoes">
+        <a href="/projeto/excluir?cod={{p.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" name="excluir" value={{p.cod}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/projeto/alterar?cod={{p.cod}}">
+          <button id="botao" type="submit" class="btn btn-add" style="float:left; margin-right:5px; margin-bottom:2px;"
+            value={{p.cod}} name="alterar">Alterar</button>
+        </a>
+        <a href="/projeto/telaInfo?cod={{p.cod}}">
+          <button id="botao" name="infoCodFunc" value={{p.cod}} class="btn btn-add info"
+            style="float:left;">info</button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+  {%endif%}
+</div>
+{% endblock %}

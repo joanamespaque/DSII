@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% from "_errors.html" import render_field %}
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %} 
+
+{% block titulo %} Mensagem {% endblock %}
+{% block corpo %}
+    {% if msg %}
+    <h3>{{msg}}</h3>
+    {% endif%}
+    {% if link %}
+    <a href="{{link}}">GMAIL</a>
+    {% endif %}
+{% endblock %}

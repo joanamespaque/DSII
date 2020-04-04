@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Pastas {% endblock %}
+
+{% block perfilnav %}
+
+{% endblock %}
+
+{% block corpo %}
+
+<div class="album py-10 lista-pesquisa">
+    <br>
+    <div class="container menor">
+        {%if query == []%}
+        <div class="row">
+            <h4>Desculpe, não temos o que mostrar :(</h4>
+        </div>
+        {%endif%}
+        <br><br>
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detalhes do Pin</h5>
+                        <form class="arrasta" id="formpin" action="/pin/salvar" method="POST" enctype="multipart/form-data">    
+                            <div class="form-group">
+                                
+                                <input id="id_invisivel" class="pin_id" name="pin" type="number" value="">
+
+                                <select name="pasta" class="form-control" id="pasta" required>
+                                    {% for item in query %}
+                                        {% if item.idcriador == current_user.id %}
+                                            <option value="{{item.id}}"> {{item.nome}} </option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div> <br>
+                            <button type="submit" class="btn btn-outline-danger">Salvar</button>
+                        </form>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="img_modal" class="card-img-top" src="" data-holder-rendered="true">
+                
+                        <div style="padding-top: 1em;">
+                            <p id="titulo"></p>
+                            <p id="descricao"></p>
+                            <p id="tematica"></p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% for item in query %}
+            {%if tipo=='pins'%}
+            <!-- <div class="row"> -->
+            {%for pin in item.pins%}
+            <div class="col-md-3 editar_pin" id="{{pin.id}}" data-toggle="modal" data-target="#exampleModal2">
+                <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" alt="Thumbnail [100%x225]"
+                        style="height: 225px; width: 100%; display: block;" src="/static/uploads/pins/{{pin.imagem}}"
+                        data-holder-rendered="true">
+                    <div class="card-body">
+                        <a class="editar_pin" id="{{pin.id}}" class="btn modal-class" data-toggle="modal" data-target="#exampleModal2"><p class="card-text">{{pin.titulo}}</p></a>  
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            <!-- </div> -->
+            
+            {%elif tipo=='pastas'%}
+            <br><br>
+            <div style="width: 100%; margin-bottom: 20px;">
+                <p class="middle" style="text-align: center;"> 
+                    <a href="/usuario/pasta?id={{item.id}}"  style="color:rgb(29, 29, 29);text-align: center; width: 100%;" class="tittle">
+                            {{item.nome}}:
+                        </a>
+                </p>
+                <!-- <h1 class="tittle" >{{item.nome}}</h1> -->
+            </div>
+            <!-- <div class="container menor"> -->
+            <!-- <div class="row"> -->
+            {%for pin in item.pins%}
+            <div class="col-md-3 middle">
+                <div class="card mb-4 box-shadow" style="width: 225px !important;">
+                    <img class="card-img-top" alt="Thumbnail [225x225]"
+                        style="height: 225px; width: 225px; display: block;" src="/static/uploads/pins/{{pin.imagem}}"
+                        data-holder-rendered="true">
+                    <div class="card-body" style="width: 225px;">
+                        <p class="card-text">{{pin.titulo}}</p>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+            {%else%}
+            {%if item.id != current_user.id%}
+            <a href="/usuario/visualizar-perfil?id={{item.id}}" style="margin-right: 40px;">
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow" style="border-radius: 120px;width: 200px; height: 200px;">
+                        <img class="card-img-top" alt="Thumbnail [200x200]"
+                            style="height: 200px; width: 200px; display: block;border-radius: 120px;"
+                            src="/static/uploads/usuarios/{{item.foto}}" data-holder-rendered="true">
+                    </div>
+                    <div style="border-radius: 120px;width: 200px;">
+                        <p class="card-text" style="text-align: center; margin-bottom: 40px;">@{{item.username}}</p>
+                    </div>
+                </div>
+            </a>
+            {%endif%}
+            {%endif%}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{%block script%}
+<script>
+    $('#list-tab a').on('click', function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+    });
+
+    $('.editar_pin').click(function() {
+        let id =  $(this).attr('id');
+        console.log("id: " + id);
+
+        req = $.ajax({
+            url: '/pin/buscar?id='+id,
+            type: 'GET',
+            async: true,
+            cache: true
+        });
+
+        req.done(function(data) {
+            let pin = JSON.parse(data.pin);
+            console.log("pin: " + pin);
+            console.log('pin titulo: ' + pin.titulo);
+            $('#titulo').text("Título: " + pin.titulo);
+            $('#descricao').text("Descrição: " + pin.descricao);
+            $('#tematica').text("Temática: " + pin.tematica);
+            $('.pin_id').attr("value", id);
+            $('#img_modal').attr("src", "/static/uploads/pins/" + pin.imagem);
+        });
+    });
+</script>
+{% endblock %}

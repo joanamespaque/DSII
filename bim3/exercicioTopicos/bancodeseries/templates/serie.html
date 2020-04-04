@@ -1,0 +1,67 @@
+{% extends "nav.html"%}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
+    .info{
+        width: 30px;
+        height: 30px;
+        background: url("{{url_for('static', filename='img/seta.png')}}") no-repeat;
+        background-size: 100%;
+        margin-top:5px;
+    }
+</style>
+{% endblock %}
+
+{% block titulo %} Lista de séries {% endblock %}
+{% block corpo %}
+    {%if not session['login'] %}
+    <div class="links">
+        <a href="/usuario/telaLogin">Já possui um cadastro? Clique aqui para fazer login.</a>
+    </div>
+    {%endif%}
+    <div class="titulo">
+        <img src="{{url_for('static', filename=serie.foto)}}" />
+        <h3>{{(serie.titulo).lower()}}</h3>
+    </div>
+    <div class="container">
+        <table class="table">
+        <tr>
+            <th>NÚMERO</th>
+            <th>TÍTULO</th>
+        </tr>
+        {%for t in temporadas%}
+        <tr>
+            <td>{{t.numero}}</td>
+            <td>{{t.titulo}}</td>
+            <td class="botoes">
+                <a class="seta" id="seta{{t.cod}}">
+                    <button name="detalhes" value={{t.cod}} class="btn btn-add info botao" style="float:left;">	
+                    </button>
+                </a>
+                {%if serie.usuario.cod == session['cod']%}
+                <a href="/temporada/excluir?cod={{t.cod}}">
+                    <button name="excluirTemporada" class="btn btn-add botao" value={{t.cod}}>excluir</button>
+                </a>
+                <a href="/temporada/alterar?cod={{serie.cod}}">
+                    <button name="alterarTemporada" class="btn btn-add botao" value={{t.cod}}>alterar</button>
+                </a>
+                {%endif%}
+            </td>
+            <td class="loading{{t.cod}} load"></td>
+            
+        </tr>
+        <tr class="firstResponse{{t.cod}}"></tr>
+        <tbody class="black secondResponse{{t.cod}}">
+
+        </tbody>
+        <!-- <tr class="secondResponse{{t.cod}} black"></tr>
+        <tr class="thirdResponse{{t.cod}} black"></tr> -->
+        {%endfor%}
+    </table>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/listaEpisodios.js') }}"></script>
+{% endblock %}

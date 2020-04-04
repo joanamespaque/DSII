@@ -1,0 +1,28 @@
+{% extends "nav.html" %}
+{% block title %}Lista Ideias{% endblock %}
+{% block corpo %}
+  <div class="container">
+        <h3>LISTA DE IDEIAS ({{len}})</h3>
+        <table class="table">
+          <tr>
+            <th>CÓDIGO</th>
+            <th>TÍTULO</th>
+            <th>DESCRICAO</th>
+          </tr>
+          {%for i in ideias%}
+          <tr>
+            <td>{{i.cod}}</td>
+            <td>{{i.titulo}}</td>
+            <td>{{i.descricao}}</td>
+            </td>
+            <td class="botoes">
+              <a href="/ideia/telaInfo?cod={{i.cod}}">
+                <button id="botao" name="infoCodFunc" value={{i.cod}} class="btn btn-add info"
+                  style="float:left;">info</button>
+              </a>
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+{% endblock %}

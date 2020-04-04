@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest - Inserir Pasta {% endblock %}
+
+{% block perfilnav %}
+
+{% endblock %}
+
+{% block corpo %}
+    <div class="container menor">
+        <div class="row">
+            <div class="col"></div>
+            <div class="">
+                <h1 class="tittle">Inserir Pasta</h1>
+                <form action="/pasta/cadastrar" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputNome">Nome</label>
+                        <input name="nome" type="text" class="form-control" id="exampleInputNome" aria-describedby="nomeHelp" placeholder="Nome da Pasta">
+                    </div>
+                    <button type="submit" class="btn btn-outline-danger">Inserir</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

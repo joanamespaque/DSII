@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest {% endblock %}
+
+{% block corpo %}
+    <div class="row">
+            <div class='msg'>
+                    {%if msg%}
+                        <h4>{{msg}}</h4>
+                    {% endif %}
+            </div>
+        <div class="col"></div>
+        <div class="col">
+            <div class="jumbotron color-change-2x">
+                <h1 class="display-4 tittle">Pintarest</h1>
+                <p class="lead">A plataforma de fotos artísticas ideal pra você.</p>
+                <hr class="my-4">
+                {%if not current_user.is_authenticated %}
+                <p class="lead">
+                    <a class="btn btn-outline-light btn-lg" href="/usuario/cadastro" role="button">Cadastrar-se</a>
+                    <a class="btn btn-outline-light btn-lg" href="/usuario/entrar" role="button">Entrar</a>
+                </p>
+                {%endif%}
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="container">
+        <!-- <h1 class="tittle">Timeline</h1> -->
+        <div class="row">
+            {% for pin in pins %}
+                <div class="col-md-3">
+                    <div class="card mb-4 box-shadow">
+                        <img class="card-img-top" alt="Thumbnail [100%x225]"
+                            style="height: 225px; width: 100%; display: block;" src="/static/uploads/pins/{{pin.imagem}}"
+                            data-holder-rendered="true">
+                        <div class="card-body">
+                            <a class="editar_pin" id="{{pin.id}}" class="btn modal-class" data-toggle="modal" data-target="#exampleModal2"><p class="card-text">{{pin.titulo}}</p></a>  
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{%block script%}
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function(){ 
+            setTimeout(function() {
+                $(".msg").empty();
+            }, 5000);
+        }, false);
+    </script>
+{%endblock%}

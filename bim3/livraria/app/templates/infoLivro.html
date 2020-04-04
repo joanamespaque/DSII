@@ -1,0 +1,46 @@
+{% extends "base.html"%}
+{% block title %}Projeto{% endblock %}
+{% block corpo %}
+<div style='width:100%;'>
+        <a href="/livro/listar">
+            <button class="btn btn-primary">VOLTAR PARA A LISTA DE LIVROS</button>
+        </a>
+</div>
+<br>
+<h3>Livro:</h3>
+{% if livro %}
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>TITULO</th>
+            <th>EDITORA</th>
+            <th>DATA DE LANÇAMENTO</th>
+        </tr>
+        <tr>
+            <td>{{livro.id}}</td>
+            <td>{{livro.titulo}}</td>
+            <td>{{livro.editora}}</td>
+            <td>{{livro.data_lancamento}}</td>
+        </tr>
+    </table>
+    {%if livro.autores%}
+    <h3>Autores Vinculados:</h3>
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>NOME</th>
+            <th>CPF</th>
+        </tr>
+        {%for a in livro.autores%}
+        <tr>
+            <td>{{a.id}}</td>
+            <td>{{a.nome}}</td>
+            <td>{{a.cpf}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+    {% else %}
+        Nenhum autor foi vinculado a esse livro 
+    {% endif %} 
+{% endif %}
+{% endblock %}

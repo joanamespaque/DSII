@@ -1,0 +1,42 @@
+{% extends "base.html"%}
+{% block title %}Lista de Livros{% endblock %}
+{% block corpo %}
+<div class="container">
+  <table class="table">
+    <h3>LISTA DE LIVROS</h3>
+    <tr>
+      <th>ID</th>
+      <th>TÍTULO</th>
+      <th>EDITORA</th>
+      <th>DATA DE LANÇAMENTO</th>
+    </tr>
+    {%for l in livros: %}
+    <tr>
+      <td>
+        {{l.id}}
+      </td>
+      <td>
+        {{l.titulo}}
+      </td>
+      <td>
+        {{l.editora}}
+      </td>
+      <td>
+        {{l.data_lancamento.strftime("%d/%m/%Y")}}
+      </td>
+      <td class="botoes" style='width:300px;'>
+        <a href="/livro/excluir?id={{l.id}}">
+          <button id="botao" type="submit" class="btn btn-danger" name="excluir" value={{l.id}}
+            style="float:left; margin-right:5px;margin-bottom:2px;">Excluir</button>
+        </a>
+        <a href="/livro/telaInfo?id={{l.id}}">
+          <button id="botao" name="infoidlivro" value={{l.id}} class="btn btn-primary info" style="float:left;">
+            info
+          </button>
+        </a>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+</div>
+{% endblock %}

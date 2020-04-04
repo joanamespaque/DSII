@@ -1,0 +1,40 @@
+{% extends "nav.html"%}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/listar.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block titulo %} Lista de séries {% endblock %}
+{% block corpo %}
+    {%if not session['login'] %}
+    <div class="links">
+        <a href="/usuario/telaLogin">Já possui um cadastro? Clique aqui para fazer login.</a>
+    </div>
+    {%endif%}
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>TÍTULO</th>
+        </tr>
+        {%for s in series%}
+        <tr>
+            <td>{{s.titulo}}</td>
+            <td class="botoes">
+                <a href="/serie/detalhes?cod={{s.cod}}">
+                    <button name="detalhes" value={{s.cod}} class="btn btn-add botao" style="float:left;">detalhes</button>
+                </a>
+                {%if s.usuario.cod == session['cod']%}
+                <a href="/serie/excluir?cod={{s.cod}}">
+                    <button name="excluirSerie" class="btn btn-add botao" value={{s.cod}}>excluir</button>
+                </a>
+                <a href="/serie/alterar?cod={{s.cod}}">
+                    <button name="alterarSerie" class="btn btn-add botao" value={{s.cod}}>alterar</button>
+                </a>
+                {%endif%}
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+</div>
+{% endblock %}

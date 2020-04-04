@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+
+{% block titulo %} Pintarest {% endblock %}
+
+{% block corpo %}
+<div class="container">
+    <div class="middle" style="width: 600px;">
+            <div class='msg'>
+                {%if msg%}
+                    <div class="alert alert-danger">
+                        <h4>{{msg}}</h4>
+                    </div>
+                {% endif %}
+            </div>
+            <h4 style="text-align: center;">Tem certeza que deseja excluir seu perfil?</h4>
+            <br>
+        <div  style="width:50%;" class="middle">
+                <form action="/usuario/excluir" method="POST">
+                        <label for="confirmar senha">Para isso, confirme sua senha:</label>
+                        <input type="hidden" name="id" value="{{current_user.id}}">
+                        <input name="senha" type="password" class="form-control" placeholder="•••••" required>
+                        <div class="middle" style="width: 180px; margin-top:20px;">
+                            <a href="/usuario/pins" class="btn btn-primary">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </div>
+                </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{%block script%}
+    <!-- <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function(){ 
+            setTimeout(function() {
+                $(".msg").empty();
+            }, 5000);
+        }, false);
+    </script> -->
+{%endblock%}

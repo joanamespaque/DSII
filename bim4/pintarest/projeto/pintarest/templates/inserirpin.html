@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block titulo %} Pintarest - Inserir Pin {% endblock %}
+{% block corpo %}
+    <div class="container menor">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <h1 class="tittle">Inserir Pin</h1>
+                <form id="formpin" action="/pin/cadastrar" method="POST" enctype="multipart/form-data">
+                    {%if pin%}
+                    <input type="hidden" name="id" value={{pin.id}}>
+                    <input type="hidden" name="foto" value={{pin.imagem}}>
+                    {%endif%}
+                    {%if pin%}
+                    <input type="hidden" name="id" value={{pin.id}}>
+                    {%endif%}
+                    <div class="form-group">
+                        <label for="exampleInputTitulo">Título</label>
+                        <input type="text" class="form-control" id="exampleInputTitulo" aria-describedby="tituloHelp" placeholder="Título do Pin" name="titulo" {%if pin%}value="{{pin.titulo}}"{%endif%}>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUser">Descrição</label>
+                        <input type="textarea" class="form-control" id="exampleInputDescricao" aria-describedby="descricaoHelp" placeholder="Descrição do Pin" name="descricao" required {%if pin%}value="{{pin.descricao}}"{%endif%}>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUser">Temática</label>
+                        <select aria-invalid="false" class="form-control" name="tematica" required>
+                            {%for chave, valor in options.items()%}
+                                <option value="{{chave}}" 
+                                {%if pin and pin.tematica==chave%}
+                                selected
+                                {%endif%}
+                                >{{valor}}</option>
+                            {%endfor%}
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Imagem</span>
+                        </div>
+                        <div class="custom-file">
+                            <label class="custom-file-label" for="inputGroupFile01">Escolher Arquivo</label>
+                            <input type="file" class="custom-file-input" id="inputGroupFile01" placeholder="Escolher Arquivo" name="imagem" {%if not pin%}required{%endif%}>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pasta">Pasta</label>
+                        <select name="pasta" class="form-control" id="pasta" required>
+                            {% for p in plistar %}
+                                <option value="{{p.id}}"
+                                {%if pin and pin.idpastaorigem == p.id%}
+                                selected
+                                {%endif%}
+                                >
+                                    {{p.nome}}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-danger">Salvar</button>
+                </form>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

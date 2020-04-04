@@ -1,0 +1,148 @@
+{% extends 'perfil.html' %}
+
+{% block titulo %} Pintarest - Pastas {% endblock %}
+
+{% block corpo %}
+<br>
+<div class="album py-5">
+    <div class="container menor">
+        <br>
+        <br>
+        <div class="row">
+            <div class="divpastas">
+                <div class="list-group listapastas left" id="list-tab" role="tablist">
+                    <h3 class="tittle">Suas pastas:</h3>
+                    {% for p in plistar %}
+                    <a href="#pasta{{p.id}}">
+                        <div class="info">
+                            <div class="input-title">
+                                {{p.nome}}
+                            </div>
+                            <div class="botoes">
+                                <a href="/pasta/delete?id={{p.id}}">
+                                    <img class="icon-crud" src="{{ url_for('static', filename='images/trash.png') }}">
+                                </a>
+                                <a class="editar" id="editar{{p.id}}" class="btn modal-class" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                    <img class="icon-crud" src="{{ url_for('static', filename='images/pencil.png') }}">
+                                </a>
+                            </div>
+                            <br>
+                        </div>
+
+                    </a>
+                    {% endfor %}
+                    <button type="button" class="btn modal-class" data-toggle="modal" data-target="#exampleModal">
+                        Criar nova Pasta
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Crie uma nova pasta</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <form class="formpasta" action="/pasta/cadastrar" method="POST">
+                                            <label for="nome">Nome:</label>
+                                            <input name="nome" type="text" class="form-control"
+                                                aria-describedby="nomeHelp" placeholder="Nome da Pasta" id="nomepasta"
+                                                required>
+                                            <label for="descricao">Descrição:</label>
+                                            <textarea placeholder="Descreva sua pasta." class="form-control"
+                                                name="descricao" cols="10" rows="5" maxlength="500" id="descricaopasta"
+                                                required></textarea>
+                                            <label for="secreto">Tornar essa pasta secreta?</label>
+                                            <div class="switch__container">
+                                                <input name="secreto" id="switch-shadow"
+                                                    class="switch switch--shadow secretopasta" type="checkbox">
+                                                <label for="switch-shadow"></label>
+                                            </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn modal-class">Salvar</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Detalhes do Pin</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img id="img_modal" class="card-img-top" src="" data-holder-rendered="true">
+                            
+                                    <div style="padding-top: 1em;">
+                                        <p id="titulo"></p>
+                                        <p id="descricao"></p>
+                                        <p id="tematica"></p> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+<div class="col-8 pastaitem">
+    <br> <br> <br> <br>
+    <div class="tab-content listapastas" id="nav-tabContent">
+        {% for p in plistar %}
+        <a name="pasta{{p.id}}"></a>
+        <div class="tab-pane fade show active" id="list-{{p.id}}" role="tabpanel" aria-labelledby="list-{{p.id}}-list">
+            <a href="/usuario/pasta?id={{p.id}}" class="tittle">
+                <h1 class="tittle{{p.id}}">{{p.nome}}</h1>
+            </a>
+            <div class="container menor">
+                <div class="row">
+                    {%if p.pins == []%}
+                    A pasta &nbsp;<span>{{p.nome}}</span>&nbsp; e ainda não tem pins :(
+                    <br>
+                    <br>
+                    {%else%}
+
+                    {%for item in p.pins%}
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <img class="card-img-top" alt="Thumbnail [100%x225]"
+                                style="height: 225px; width: 100%; display: block;"
+                                src="/static/uploads/pins/{{item.imagem}}" data-holder-rendered="true">
+                            <div class="card-body" style="width: 100%; display: block;">
+                                <a class="editar_pin" id="{{item.id}}" class="btn modal-class" data-toggle="modal" data-target="#exampleModal2"><p class="card-text">{{item.titulo}}</p></a> 
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+<br>
+
+
+{% endblock %}
+
+{%block script%}
+{% endblock %}
